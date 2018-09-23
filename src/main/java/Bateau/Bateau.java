@@ -112,6 +112,40 @@ public abstract class Bateau {
     }
 
 
+    public void deplacement (int orientation, int nbCases){
+
+        switch (orientation){
+
+            case 8 :
+
+                position.x -= nbCases;
+
+                break;
+
+            case 4:
+
+                   position.y -= nbCases;
+
+                break;
+
+            case 2:
+
+                   position.x += nbCases;
+
+                break;
+
+            case 6:
+
+                   position.y += nbCases;
+
+                break;
+        }
+
+
+
+    }
+
+
     public void setPosition(Point position) {
         this.position = position;
     }

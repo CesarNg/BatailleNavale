@@ -26,7 +26,7 @@ public class InterfaceJeu {
 
 
 
-    public InterfaceJeu(){
+    public InterfaceJeu(Joueur joueur){
 
         //Création de la grille
 
@@ -202,6 +202,7 @@ public class InterfaceJeu {
 
     }
 
+    
     public ContreTorpilleur getContreTorpilleur() {
         return contreTorpilleur;
     }
