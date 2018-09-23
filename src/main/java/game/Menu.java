@@ -1,5 +1,6 @@
 package game;
 
+
 import java.awt.*;
 import java.util.Scanner;
 
@@ -21,6 +22,21 @@ public class Menu {
 
         return point;
 
+    }
+
+
+    public void logPositionsBateau(Bateau bateau){
+
+        System.out.print("positions du "+ bateau.getNom()+" : ");
+
+        for (Point point :bateau.getListPoint()
+             ) {
+
+            System.out.printf("(%s,%s)  ",point.x,point.y);
+
+        }
+
+        System.out.println();
     }
 
     public int menuOrientationBateau(String nom){

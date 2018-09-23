@@ -24,12 +24,12 @@ public class InterfaceJeu {
 
 
 
-    public InterfaceJeu(){
+    public InterfaceJeu(Joueur joueur){
 
         //Création de la grille
 
         int i,j,k=0;
-        champBataille = new String[11][11];
+        champBataille = new String[10][10];
 
         for (i=0;i < champBataille.length;i++){
             for(j=0;j< champBataille[i].length;j++){
@@ -60,6 +60,7 @@ public class InterfaceJeu {
         //placement du torpilleur sur la grille
         placementBateau(torpilleur.getPosition(),torpilleur.getTaille(),torpilleur.getOrientation());
         menu.afficherChampBataille(champBataille);
+        menu.logPositionsBateau(torpilleur);
 
 
 
@@ -79,6 +80,7 @@ public class InterfaceJeu {
         //placement du sousMarin sur la grille
         placementBateau(sousMarin.getPosition(),sousMarin.getTaille(),sousMarin.getOrientation());
         menu.afficherChampBataille(champBataille);
+        menu.logPositionsBateau(sousMarin);
 
 
 
@@ -98,6 +100,7 @@ public class InterfaceJeu {
         //placement du contreTorpilleur sur la grille
         placementBateau(contreTorpilleur.getPosition(),contreTorpilleur.getTaille(),contreTorpilleur.getOrientation());
         menu.afficherChampBataille(champBataille);
+        menu.logPositionsBateau(contreTorpilleur);
 
 
 
@@ -117,6 +120,7 @@ public class InterfaceJeu {
         //placement du porteAvion sur la grille
         placementBateau(porteAvion.getPosition(),porteAvion.getTaille(),porteAvion.getOrientation());
         menu.afficherChampBataille(champBataille);
+        menu.logPositionsBateau(porteAvion);
 
 
 
@@ -136,6 +140,7 @@ public class InterfaceJeu {
         //placement du croiseur sur la grille
         placementBateau(croiseur.getPosition(),croiseur.getTaille(),croiseur.getOrientation());
         menu.afficherChampBataille(champBataille);
+        menu.logPositionsBateau(croiseur);
 
 
     }
@@ -195,6 +200,7 @@ public class InterfaceJeu {
 
     }
 
+    
     public ContreTorpilleur getContreTorpilleur() {
         return contreTorpilleur;
     }
