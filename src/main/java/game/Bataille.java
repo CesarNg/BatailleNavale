@@ -1,7 +1,4 @@
-import Bateau.*;
-import javafx.scene.control.Tab;
-
-import java.awt.*;
+package game;
 
 public class Bataille {
 
@@ -23,9 +20,11 @@ public class Bataille {
 
          joueur1 = new Joueur("Cesar");
          interfaceJeu1 = new InterfaceJeu();
+         interfaceJeu1 = new InterfaceJeu(joueur1);
 
          joueur2 = new Joueur("Brice");
          interfaceJeu2 = new InterfaceJeu();
+         interfaceJeu2 = new InterfaceJeu(joueur2);
 
     }
 

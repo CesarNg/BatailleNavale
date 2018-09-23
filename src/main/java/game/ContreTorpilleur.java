@@ -1,6 +1,6 @@
-package Bateau;
+package game;
 
-import Bateau.Bateau;
+import game.Bateau;
 
 public class ContreTorpilleur extends Bateau {
     public ContreTorpilleur(String nom) {

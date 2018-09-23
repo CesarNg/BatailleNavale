@@ -1,8 +1,6 @@
-import Bateau.*;
-import javafx.scene.control.Tab;
+package game;
 
-import java.awt.*;
-import java.util.Scanner;
+import java.awt.Point;
 
 public class InterfaceJeu {
 

@@ -1,3 +1,5 @@
+package game;
+
 public class Joueur {
 
     private String Nom;
