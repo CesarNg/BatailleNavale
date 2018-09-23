@@ -1,41 +1,46 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Joueur {
 
-    private String Nom;
-    private int Score;
-    private Boolean victoire;
+    private String nom;
+    private List<Bateau> listBateau;
 
     public Joueur(){
-        Score = 0;
-        Nom = "Joueur";
-        victoire = false;
+        nom = "Joueur";
+        listBateau = new ArrayList<Bateau>();
     }
 
     public Joueur(String n){
-        Score = 0;
-        Nom = n;
-        victoire = false;
+        nom = n;
+        listBateau = new ArrayList<Bateau>();
+    }
+
+    public void ajouterBateau(Bateau bateau){
+        listBateau.add(bateau);
+    }
+
+    public void supprBateau(Bateau bateau){
+        if (listBateau.contains(bateau)) {
+            listBateau.remove(bateau);
+        }
+        if (listBateau.size()==0){
+            Defaite();
+        }
+    }
+
+    public List<Bateau> getListBateau() {
+        return listBateau;
     }
 
     public String getNom(){
-        return Nom;
+        return nom;
     }
 
-    //Ajout de points au score
-    public void adScore(int sc){
-        Score += sc;
-    }
+    //TODO gerer la defaite
+    private void Defaite(){
 
-    //Retire des points au score
-    public void removeScore(int sc){
-        Score -= sc;
-    }
-
-    public int getScore(){
-        return Score;
-    }
-    public Boolean getVictoire(){
-        return victoire;
     }
 }
