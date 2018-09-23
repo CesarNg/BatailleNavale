@@ -1,6 +1,7 @@
 package Bateau;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class Bateau {
 
@@ -47,6 +48,69 @@ public abstract class Bateau {
         return position;
     }
 
+    public ArrayList<Point>  getListPoint (){
+
+        ArrayList <Point> positionsList = new ArrayList<Point>();
+
+
+        switch (getOrientation()){
+
+            case 8 :
+
+                for (int i = getPosition().x ; i > getPosition().x - getTaille() ; i -- ){
+                    Point point = new Point();
+                    point.x = i;
+                    point.y = getPosition().y;
+
+                    positionsList.add(point);
+                }
+
+                break;
+
+            case 4:
+
+                for (int i = getPosition().y ; i > getPosition().y - getTaille() ; i -- ){
+
+                    Point point = new Point();
+                    point.x = getPosition().x;
+                    point.y = i;
+
+                    positionsList.add(point);
+                }
+
+            break;
+
+            case 2:
+
+                for (int i = getPosition().x ; i < getPosition().x + getTaille() ; i ++ ){
+
+                    Point point = new Point();
+                    point.x = i;
+                    point.y = getPosition().y;
+
+                    positionsList.add(point);
+                }
+
+                break;
+
+            case 6:
+
+                for (int i = getPosition().y ; i < getPosition().y + getTaille() ; i ++ ){
+
+                    Point point = new Point();
+                    point.x = getPosition().x;
+                    point.y = i;
+
+                    positionsList.add(point);
+                }
+
+                break;
+        }
+
+
+        return positionsList;
+    }
+
 
     public void setPosition(Point position) {
         this.position = position;
@@ -57,10 +121,10 @@ public abstract class Bateau {
     }
 
 
-    /* 0 si l'orientation du bateau est au nord
-       1 si l'orientation du bateau est à l'ouest
+    /* 8 si l'orientation du bateau est au nord
+       4 si l'orientation du bateau est à l'ouest
        2 si l'orienation du bateau est au sud
-       3 si l'orientation du bateau est à l'est*/
+       6 si l'orientation du bateau est à l'est*/
 
     public void setOrientation(int orientation) {
         this.orientation = orientation;
