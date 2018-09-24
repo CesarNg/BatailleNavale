@@ -1,6 +1,6 @@
-package Bateau;
+package game;
 
-import Bateau.Bateau;
+import game.Bateau;
 
 public class SousMarin extends Bateau {
     public SousMarin(String nom) {

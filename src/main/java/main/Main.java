@@ -1,3 +1,7 @@
+package main;
+import game.Bataille;
+import game.Menu;
+
 public class Main {
 
 

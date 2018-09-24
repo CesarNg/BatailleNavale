@@ -1,4 +1,5 @@
-import Bateau.Bateau;
+package game;
+
 
 import java.awt.*;
 import java.util.Scanner;

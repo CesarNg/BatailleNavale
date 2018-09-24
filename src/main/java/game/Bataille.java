@@ -1,7 +1,4 @@
-import Bateau.*;
-import javafx.scene.control.Tab;
-
-import java.awt.*;
+package game;
 
 public class Bataille {
 
