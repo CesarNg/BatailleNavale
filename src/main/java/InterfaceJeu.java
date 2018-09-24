@@ -202,7 +202,7 @@ public class InterfaceJeu {
 
     }
 
-    
+
     public ContreTorpilleur getContreTorpilleur() {
         return contreTorpilleur;
     }
