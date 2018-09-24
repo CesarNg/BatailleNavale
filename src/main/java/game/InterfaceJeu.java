@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InterfaceJeu {
 
@@ -20,11 +22,15 @@ public class InterfaceJeu {
     private int orientationCroiseur;
     private Point pointSousMarin;
     private int orientationSousMarin;
+    private Joueur joueur;
+    private Menu menu;
 
 
 
 
     public InterfaceJeu(Joueur joueur){
+
+        this.joueur = joueur;
 
         //Création de la grille
 
@@ -42,7 +48,7 @@ public class InterfaceJeu {
         }
        //*******************************************************
 
-        Menu menu = new Menu();
+         menu = new Menu();
 
        // Choisir la position du torpilleur
         pointTorpilleur = menu.menuPositionBateau("Torpilleur");
@@ -58,6 +64,7 @@ public class InterfaceJeu {
         //***************************************************
 
         //placement du torpilleur sur la grille
+        joueur.ajouterBateau(torpilleur);
         placementBateau(torpilleur.getPosition(),torpilleur.getTaille(),torpilleur.getOrientation());
         menu.afficherChampBataille(champBataille);
         menu.logPositionsBateau(torpilleur);
@@ -78,6 +85,7 @@ public class InterfaceJeu {
         //***************************************************
 
         //placement du sousMarin sur la grille
+        joueur.ajouterBateau(sousMarin);
         placementBateau(sousMarin.getPosition(),sousMarin.getTaille(),sousMarin.getOrientation());
         menu.afficherChampBataille(champBataille);
         menu.logPositionsBateau(sousMarin);
@@ -98,6 +106,7 @@ public class InterfaceJeu {
         //***************************************************
 
         //placement du contreTorpilleur sur la grille
+        joueur.ajouterBateau(contreTorpilleur);
         placementBateau(contreTorpilleur.getPosition(),contreTorpilleur.getTaille(),contreTorpilleur.getOrientation());
         menu.afficherChampBataille(champBataille);
         menu.logPositionsBateau(contreTorpilleur);
@@ -118,6 +127,7 @@ public class InterfaceJeu {
         //***************************************************
 
         //placement du porteAvion sur la grille
+        joueur.ajouterBateau(porteAvion);
         placementBateau(porteAvion.getPosition(),porteAvion.getTaille(),porteAvion.getOrientation());
         menu.afficherChampBataille(champBataille);
         menu.logPositionsBateau(porteAvion);
@@ -138,6 +148,7 @@ public class InterfaceJeu {
         //***************************************************
 
         //placement du croiseur sur la grille
+        joueur.ajouterBateau(croiseur);
         placementBateau(croiseur.getPosition(),croiseur.getTaille(),croiseur.getOrientation());
         menu.afficherChampBataille(champBataille);
         menu.logPositionsBateau(croiseur);
@@ -197,6 +208,50 @@ public class InterfaceJeu {
                 break;
         }
 
+
+    }
+
+    public void updateGrid (Joueur joueur){
+
+        int i,j;
+        boolean pointPresent = false;
+        List<Point> allPoints = new ArrayList<Point>();
+
+        // recuperer toutes les positions des bateaux du joueur
+
+        for (Bateau bateau: joueur.getListBateau()
+             ) {
+                  allPoints.addAll(bateau.getListPoint());
+
+        }
+
+        //**********************************************
+
+
+        //Replacer toutes les positions dans la grille dans la grille
+        for (i=0;i < champBataille.length;i++){
+            for(j=0;j< champBataille[i].length;j++){
+
+                pointPresent = false;
+
+                for (Point point : allPoints
+                     ) {
+
+                    if(point.x == i && point.y == j)
+                        pointPresent = true;
+                }
+
+                if(pointPresent)
+                     champBataille[i][j]= "\033[31m"+"X" + "\033[00m";
+                else
+                    champBataille[i][j]= "O";
+
+            }
+
+        }
+        //****************************************************************
+
+        menu.afficherChampBataille(champBataille);
 
     }
 
