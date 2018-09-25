@@ -21,8 +21,12 @@ public class Bataille {
          joueur1 = new Joueur("Cesar");
          interfaceJeu1 = new InterfaceJeu(joueur1);
 
-         joueur2 = new Joueur("Brice");
-         interfaceJeu2 = new InterfaceJeu(joueur2);
+         joueur1.getListBateau().get(0).deplacement(6,2);
+
+         interfaceJeu1.updateGrid(joueur1);
+
+        // joueur2 = new Joueur("Brice");
+        // interfaceJeu2 = new InterfaceJeu(joueur2);
 
     }
 
