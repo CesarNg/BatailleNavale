@@ -1,39 +1,251 @@
 package logic;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
+import game.Bateau;
 import game.Joueur;
 
 public class GameLogic {
 
-	public List<Point> getPositionnementBateau(Point point, int orientation, String[][] champBataille) {
-		// Lors du placement d'un bateau sur un point (x,y)
-		// On retourne soit une liste vide (null)
-		// ou une liste de points invalides (hors-zone)
-		
-		//  / \
-	   //  / ! \  => On pourrait passer en paramètres juste un "Bateau" & une grille
-	  //  /_____\ => mais, on ne crée le bateau qu'une fois qu'on est sûr que tous les vérif. sont faites
-	 //			  => d'où l'utilitité de cette fonction	
-		return null;
+	public List<Point> getPositionnementBateau(Point point, int orientation, int longueur, Joueur joueur) {
+		List<Point> pointsInvalides = new ArrayList<Point>();
 
+		// On a besoin des points valides
+		// pour comparer après (si bateau existe déjà dans la case (x,y))
+		List<Point> pointsValides = new ArrayList<Point>();
+
+		// Calcul des points en fonction de l'orientation et de la longueur
+		int xDelta, yDelta;
+		xDelta = yDelta = 0;
+
+		boolean xDeltaChanged, yDeltaChanged;
+		xDeltaChanged = yDeltaChanged = false;
+
+		switch (orientation) {
+		case 6: // Est
+			yDelta = (point.y + longueur) - 1;
+			yDeltaChanged = true;
+			break;
+		case 4: // Ouest
+			yDelta = (point.y - longueur) + 1;
+			yDeltaChanged = true;
+			break;
+		case 8: // Nord
+			xDelta = (point.x - longueur) + 1;
+			xDeltaChanged = true;
+			break;
+		case 2: // Sud
+			xDelta = (point.x + longueur) - 1;
+			xDeltaChanged = true;
+			break;
+
+		default:
+			break;
+		}
+
+		// Étape 1 : on vérifie le hors-zone
+		// Étape 2 : si pas de hors-zone,
+		// on vérifie si on ne place pas un bateau sur une case occupée
+
+		// Check de xDelta
+		if (xDeltaChanged) {
+			int derniereValeur = 0;
+
+			// On va checker le hors-zone supérieur à MAX => 10
+			if (xDelta >= 10) {
+				int end = xDelta - 10; // combien d'itérations faire
+				int i = 0;
+
+				// On ajoute tous les points hors-zone dans la liste (SUD)
+				while (i < (end + 1)) {
+					pointsInvalides.add(new Point(xDelta - i, point.y));
+					derniereValeur = xDelta - i;
+					i++;
+				}
+
+				// On ajoute les points valides (SUD)
+				end = derniereValeur - point.x;
+				i = 0;
+				while (i < end) {
+					pointsValides.add(new Point(point.x + i, point.y));
+					i++;
+				}
+
+			} else if (xDelta <= -1) { // Hors-zone < MAX (0)
+				// valeur absolue car on sort de la zone dès inférieur à MIN =>0
+				int end = xDelta * (-1);
+				int i = 0;
+
+				// On ajoute les points valides (NORD)
+				while (i < end) {
+					pointsInvalides.add(new Point(xDelta + i, point.y));
+					derniereValeur = xDelta + i;
+					i++;
+				}
+
+				// Ajout des points valides (NORD)
+				end = derniereValeur - point.x;
+				end = end * (-1); // pour avoir la valeur absolue
+				i = 0;
+				while (i < end) {
+					pointsValides.add(new Point(point.x - i, point.y));
+					i++;
+				}
+			} else {
+				// Cas : pas de hors-zone (que des points valides)
+				// on va check le NORD ou SUD
+				int i = 0;
+
+				if (orientation == 8) { // NORD
+					while (i < longueur) {
+						pointsValides.add(new Point(point.x - i, point.y));
+						i++;
+					}
+				} else if (orientation == 2) { // SUD
+					while (i < longueur) {
+						pointsValides.add(new Point(point.x + i, point.y));
+						i++;
+					}
+				}
+			}
+		}
+
+		// Même check pour yDelta
+		if (yDeltaChanged) {
+			int derniereValeur = 0;
+			if (yDelta >= 10) {
+				int end = yDelta - 10; // combien d'itérations faire
+				int i = 0;
+
+				// On ajoute tous les points hors-zone dans la liste (EST)
+				while (i < (end + 1)) {
+					pointsInvalides.add(new Point(point.x, yDelta - i));
+					derniereValeur = yDelta - i;
+					i++;
+				}
+
+				// On ajoute les points valides (EST)
+				end = derniereValeur - point.y;
+				i = 0;
+				while (i < end) {
+					pointsValides.add(new Point(point.x, point.y - i));
+					i++;
+				}
+			} else if (yDelta <= -1) {
+				// valeur absolue car on sort de la zone dès inférieur à MIN =>0
+				int end = yDelta * (-1);
+				int i = 0;
+
+				// Ajout des valides invalides (OUEST)
+				while (i < end) {
+					pointsInvalides.add(new Point(point.x, yDelta + i));
+					derniereValeur = yDelta + i;
+					i++;
+				}
+
+				end = derniereValeur - point.y;
+				end = end * (-1); // valeur absolue
+				i = 0;
+				
+				// Ajout des points valides (OUEST)
+				while (i < end) {
+					pointsValides.add(new Point(point.x, point.y + i));
+					i++;
+				}
+			} else {
+				// Cas : pas de hors-zone (que des points valides)
+				// on va check l'EST ou l'OUEST
+				int i = 0;
+
+				if (orientation == 6) { // EST
+					while (i < longueur) {
+						pointsValides.add(new Point(point.x, point.y + i));
+						i++;
+					}
+				} else if (orientation == 4) { // OUEST
+					while (i < longueur) {
+						pointsValides.add(new Point(point.x, point.y - i));
+						i++;
+					}
+				}
+			}
+		}
+
+		// Cas 2 : Point (x,y) + longueur se trouve dans la liste des
+		// points actuels du joueur (càd => bateau occupe déjà cette case)
+		for (Point pointValide : pointsValides) {
+			for (Bateau bateau : joueur.getListBateau()) {
+				for (Point pointBateauExistant : bateau.getListPoint()) {
+					if (arePointsEquals(pointValide, pointBateauExistant)) {
+						pointsInvalides.add(new Point(pointValide.x, pointValide.y));
+					}
+				}
+			}
+		}
+
+		return pointsInvalides;
 	}
 
 	public boolean isAPortee(Joueur joueur, String[][] champBataille, Point point) {
-		// On récupère les portées possibles de chaque bateau => donc une liste de points (x,y)
-		// On parcourt la liste de ces portées (x,y) et si le Point (x,y) passé en paramètre
-		// se trouve dans la liste => return true
+		// On récupère les portées possibles de chaque bateau => donc une liste
+		// de points (x,y)
+		// On parcourt la liste de ces portées (x,y) et si le Point (x,y) passé
+		// en paramètre se trouve dans la liste => return true
 		// sinon => return false
-		
+
+		List<Point> porteesBateaux = new ArrayList<Point>();
+
+		for (Bateau bateau : joueur.getListBateau()) {
+			// Calcul des portées et retour des valeurs dans un tableau
+			porteesBateaux.addAll(calculPortees(bateau.getListPoint()));
+		}
+
+		// On compare notre point avec le tableau de valeurs (points)
+		for (Point pointComparaison : porteesBateaux) {
+			if (arePointsEquals(point, pointComparaison))
+				return true;
+		}
+
 		return false;
 	}
-	
+
+	private List<Point> calculPortees(List<Point> listPoint) {
+		return listPoint;
+		// TODO Auto-generated method stub
+
+	}
+
 	public boolean isTirATouche(Point point, Joueur joueurAdverse) {
-		// Récupération des points (x,y) des bateaux du joueur adverse
-		// On parcourt la liste de ces points 
-		// et on compare avec le point passé en paramètre
-		
+		if (point == null || joueurAdverse == null)
+			return false;
+
+		// Récupération des bateaux du joueur adverse
+		List<Bateau> bateaux = joueurAdverse.getListBateau();
+
+		// Pour chaque bateau => récupèration de ses points
+		// et comparaison avec notre point
+		for (Bateau bateau : bateaux) {
+			List<Point> pointsBateaux = bateau.getListPoint();
+
+			for (Point pointComparaison : pointsBateaux) {
+				if (arePointsEquals(point, pointComparaison))
+					return true; // Bateau est sur la case => touché
+			}
+		}
+
 		return false;
+	}
+
+	private boolean arePointsEquals(Point point, Point pointComparaison) {
+		if (point == null || pointComparaison == null)
+			return false;
+
+		if ((point.x == pointComparaison.x) && (point.y == pointComparaison.y))
+			return true;
+
+		return false;
+
 	}
 }
