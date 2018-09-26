@@ -1,5 +1,7 @@
 package game;
 
+import exception.SaisieErroneeException;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class InterfaceJeu {
     private int orientationSousMarin;
     private Joueur joueur;
     private Menu menu;
+    private Boolean saisiePositionCorrecte;
+    private Boolean saisieOrientationCorrecte;
 
 
 
@@ -49,16 +53,39 @@ public class InterfaceJeu {
        //*******************************************************
 
          menu = new Menu();
+        saisiePositionCorrecte = false;
 
        // Choisir la position du torpilleur
-        pointTorpilleur = menu.menuPositionBateau("Torpilleur");
+
+        while (!saisiePositionCorrecte){
+            try {
+                pointTorpilleur = menu.menuPositionBateau("Torpilleur");
+                saisiePositionCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisiePositionCorrecte = false;
+                System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+            }
+        }
+        //********************************************
 
 
         //Choisir l'orientation du torpilleur
-        orientationTorpilleur = menu.menuOrientationBateau("Torpilleur");
+
+        saisieOrientationCorrecte = false;
+        torpilleur = new Torpilleur("Torpilleur");
+
+        while (!saisieOrientationCorrecte){
+            try {
+                orientationTorpilleur = menu.menuOrientationBateau(torpilleur.getNom());
+                saisieOrientationCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisieOrientationCorrecte = false;
+                System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+            }
+        }
+
 
         //Creation du torpilleur
-        torpilleur = new Torpilleur("Torpilleur");
         torpilleur.setPosition(pointTorpilleur);
         torpilleur.setOrientation(orientationTorpilleur);
         //***************************************************
@@ -72,12 +99,36 @@ public class InterfaceJeu {
 
 
         // Choisir la position du sousMarin
+        saisiePositionCorrecte = false;
         sousMarin = new SousMarin("SousMarin");
-        pointSousMarin = menu.menuPositionBateau(sousMarin.getNom());
+
+        while (!saisiePositionCorrecte){
+            try {
+                pointSousMarin = menu.menuPositionBateau(sousMarin.getNom());
+                saisiePositionCorrecte = true;
+
+            } catch (SaisieErroneeException e) {
+                saisiePositionCorrecte = false;
+                System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+            }
+        }
+
+
 
 
         //Choisir l'orientation du SousMarin
-        orientationSousMarin = menu.menuOrientationBateau(sousMarin.getNom());
+
+        saisieOrientationCorrecte = false;
+
+        while (!saisieOrientationCorrecte){
+            try {
+                orientationSousMarin = menu.menuOrientationBateau(sousMarin.getNom());
+                saisieOrientationCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisieOrientationCorrecte = false;
+                System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+            }
+        }
 
         //Creation du SousMarin
         sousMarin.setPosition(pointSousMarin);
@@ -93,12 +144,34 @@ public class InterfaceJeu {
 
 
         // Choisir la position du contreTorpilleur
+        saisiePositionCorrecte = false;
         contreTorpilleur = new ContreTorpilleur("contreTorpilleur");
-        pointContreTorpilleur = menu.menuPositionBateau(contreTorpilleur.getNom());
 
+        while (!saisiePositionCorrecte){
+            try {
+                pointContreTorpilleur = menu.menuPositionBateau(contreTorpilleur.getNom());
+                saisiePositionCorrecte = true;
+
+            } catch (SaisieErroneeException e) {
+                saisiePositionCorrecte = false;
+                System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+            }
+        }
 
         //Choisir l'orientation du contreTorpilleur
-        orientationContreTorpilleur = menu.menuOrientationBateau(contreTorpilleur.getNom());
+
+        saisieOrientationCorrecte = false;
+
+        while (!saisieOrientationCorrecte){
+            try {
+                orientationContreTorpilleur = menu.menuOrientationBateau(contreTorpilleur.getNom());
+                saisieOrientationCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisieOrientationCorrecte = false;
+                System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+            }
+        }
+
 
         //Creation du contreTorpilleur
         contreTorpilleur.setPosition(pointContreTorpilleur);
@@ -114,12 +187,36 @@ public class InterfaceJeu {
 
 
         // Choisir la position du porteAvion
+
+        saisiePositionCorrecte = false;
         porteAvion = new PorteAvion("porteAvion");
-        pointPorteAvion = menu.menuPositionBateau(porteAvion.getNom());
+
+        while (!saisiePositionCorrecte){
+            try {
+                pointPorteAvion = menu.menuPositionBateau(porteAvion.getNom());
+                saisiePositionCorrecte = true;
+
+            } catch (SaisieErroneeException e) {
+                saisiePositionCorrecte = false;
+                System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+            }
+        }
+
 
 
         //Choisir l'orientation du porteAvion
-        orientationPorteAvion = menu.menuOrientationBateau(porteAvion.getNom());
+
+        saisieOrientationCorrecte = false;
+
+        while (!saisieOrientationCorrecte){
+            try {
+                orientationPorteAvion = menu.menuOrientationBateau(porteAvion.getNom());
+                saisieOrientationCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisieOrientationCorrecte = false;
+                System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+            }
+        }
 
         //Creation du porteAvion
         porteAvion.setPosition(pointPorteAvion);
@@ -135,12 +232,37 @@ public class InterfaceJeu {
 
 
         // Choisir la position du croiseur
+
+        saisiePositionCorrecte = false;
         croiseur = new Croiseur("croiseur");
-        pointCroiseur = menu.menuPositionBateau(croiseur.getNom());
+
+        while (!saisiePositionCorrecte){
+            try {
+                pointCroiseur = menu.menuPositionBateau(croiseur.getNom());
+                saisiePositionCorrecte = true;
+
+            } catch (SaisieErroneeException e) {
+                saisiePositionCorrecte = false;
+                System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+            }
+        }
+
+
 
 
         //Choisir l'orientation du croiseur
-        orientationCroiseur = menu.menuOrientationBateau(croiseur.getNom());
+
+        saisieOrientationCorrecte = false;
+
+        while (!saisieOrientationCorrecte){
+            try {
+                orientationCroiseur = menu.menuOrientationBateau(croiseur.getNom());
+                saisieOrientationCorrecte = true;
+            } catch (SaisieErroneeException e) {
+                saisieOrientationCorrecte = false;
+                System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+            }
+        }
 
         //Creation du croiseur
         croiseur.setPosition(pointCroiseur);
@@ -214,7 +336,7 @@ public class InterfaceJeu {
     public void updateGrid (Joueur joueur){
 
         int i,j;
-        boolean pointPresent = false;
+        boolean pointPresent;
         List<Point> allPoints = new ArrayList<Point>();
 
         // recuperer toutes les positions des bateaux du joueur
