@@ -332,6 +332,8 @@ public class GameLogic {
 				int xTheorique = point.x - nbCase;
 				if (!isCoordHorsZone(xTheorique))
 					pointsTheoriques.add(new Point(xTheorique, point.y));
+				else
+					pointsNonDisponibles.add(new Point(xTheorique, point.y));
 			}
 
 			break;
@@ -340,6 +342,8 @@ public class GameLogic {
 				int xTheorique = point.x + nbCase;
 				if (!isCoordHorsZone(xTheorique))
 					pointsTheoriques.add(new Point(xTheorique, point.y));
+				else
+					pointsNonDisponibles.add(new Point(xTheorique, point.y));
 			}
 			break;
 
@@ -348,6 +352,8 @@ public class GameLogic {
 				int yTheorique = point.y + nbCase;
 				if (!isCoordHorsZone(yTheorique))
 					pointsTheoriques.add(new Point(point.x, yTheorique));
+				else
+					pointsNonDisponibles.add(new Point(point.x, yTheorique));
 			}
 			break;
 
@@ -356,6 +362,8 @@ public class GameLogic {
 				int yTheorique = point.y - nbCase;
 				if (!isCoordHorsZone(yTheorique))
 					pointsTheoriques.add(new Point(point.x, yTheorique));
+				else
+					pointsNonDisponibles.add(new Point(point.x, yTheorique));
 			}
 			break;
 
