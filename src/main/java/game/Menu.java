@@ -4,6 +4,7 @@ package game;
 import exception.SaisieErroneeException;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -64,7 +65,7 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         int ch;
 
-        System.out.println("Choisissez l'orientation du "+nom+"\n 8 - Nord     4 - ouest     2 - sud     6 - est");
+        System.out.println("Choisissez l'orientation du "+nom+"\n2 - sud       4 - ouest     6 - est    8 - Nord");
 
         try {
 
@@ -83,6 +84,62 @@ public class Menu {
 
         return ch;
 
+    }
+
+    public int menuSelectionBateau(ArrayList<Bateau> listBateau) throws SaisieErroneeException{
+        int k=1, ch;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Selectionnez le bateau à déplacer");
+
+        System.out.println("0 - Aucun bateau");
+
+        for (Bateau bateau: listBateau
+        ) {
+            System.out.print(k+" - "+bateau.getNom()+"   ");
+
+            k++;
+        }
+
+
+        try {
+
+            ch = Integer.parseInt(sc.nextLine()) ;
+
+            if(ch < 0 || ch >= k)
+                throw new SaisieErroneeException("Saisie Erronée");
+
+        } catch(NumberFormatException e) {
+
+            throw  new SaisieErroneeException("Saisie Erronée");
+        }
+
+
+        return ch;
+
+
+    }
+
+    public int menuSelectionNbCasesDeplacement()throws SaisieErroneeException{
+
+        Scanner sc = new Scanner(System.in);
+        int ch;
+
+        System.out.println("Choisissez le nombre de cases de déplacement");
+
+        try {
+
+            ch = Integer.parseInt(sc.nextLine()) ;
+
+            if(ch<0  || ch>2 )
+                throw  new SaisieErroneeException("Saisie Erronée");
+
+        } catch(NumberFormatException e) {
+
+            throw  new SaisieErroneeException("Saisie Erronée");
+        }
+
+        return ch;
     }
 
     public Point menuSelectionTir() throws SaisieErroneeException {

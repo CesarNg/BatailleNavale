@@ -116,7 +116,7 @@ public abstract class Bateau {
     }
 
 
-    public void deplacement (int orientation, int nbCases){
+    public void deplacementEffectif (int orientation, int nbCases){
 
         switch (orientation){
 
@@ -144,9 +144,39 @@ public abstract class Bateau {
 
                 break;
         }
+    }
 
+    public Point deplacementPotentielle(int orientation, int nbCases){
 
+        Point point = new Point();
+        switch (orientation){
 
+            case 8 :
+
+                point.x = position.x - nbCases;
+
+                break;
+
+            case 4:
+
+                point.y = position.y - nbCases;
+
+                break;
+
+            case 2:
+
+                point.x = position.x + nbCases;
+
+                break;
+
+            case 6:
+
+                point.y = position.y + nbCases;
+
+                break;
+        }
+
+        return  point;
     }
 
 
