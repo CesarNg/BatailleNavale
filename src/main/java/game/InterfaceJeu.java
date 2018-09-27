@@ -50,16 +50,16 @@ public class InterfaceJeu {
         nouveauBateau(Torpilleur.class,torpilleur);
 
         // Choisir la position du sousMarin
-       // nouveauBateau(SousMarin.class,sousMarin);
+         nouveauBateau(SousMarin.class,sousMarin);
 
         // Choisir la position du contreTorpilleur
-        //nouveauBateau(ContreTorpilleur.class,contreTorpilleur);
+        nouveauBateau(ContreTorpilleur.class,contreTorpilleur);
 
         // Choisir la position du porteAvion
-        //nouveauBateau(PorteAvion.class,porteAvion);
+        nouveauBateau(PorteAvion.class,porteAvion);
 
         // Choisir la position du croiseur
-       // nouveauBateau(Croiseur.class,croiseur);
+        nouveauBateau(Croiseur.class,croiseur);
 
     }
 
@@ -183,7 +183,7 @@ public class InterfaceJeu {
             while (!saisiePositionCorrecte){
                 try {
                     // Choisir la position du Bateau
-                    pointNavire = menu.menuPositionBateau(classDeNavire.getSimpleName());
+                    pointNavire = menu.menuPositionBateau(classDeNavire.getSimpleName(),joueur);
                     saisiePositionCorrecte = true;
                 } catch (SaisieErroneeException e) {
                     saisiePositionCorrecte = false;
@@ -197,7 +197,7 @@ public class InterfaceJeu {
 
             while (!saisieOrientationCorrecte){
                 try {
-                    orientationNavire = menu.menuOrientationBateau(classDeNavire.getName());
+                    orientationNavire = menu.menuOrientationBateau(classDeNavire.getName(),joueur);
                     saisieOrientationCorrecte = true;
                 } catch (SaisieErroneeException e) {
                     saisieOrientationCorrecte = false;

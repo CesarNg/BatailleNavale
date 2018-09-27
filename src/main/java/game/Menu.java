@@ -14,7 +14,7 @@ public class Menu {
 
     }
 
-    public Point menuPositionBateau(String nom) throws SaisieErroneeException {
+    public Point menuPositionBateau(String nom, Joueur joueur) throws SaisieErroneeException {
 
         Scanner sc = new Scanner(System.in);
         Point point = new Point();
@@ -23,13 +23,13 @@ public class Menu {
 
         try {
 
-            System.out.println("Choisissez les coordonnées X du "+nom);
+            System.out.println(joueur.getNom()+" choisissez les coordonnées X du "+nom);
             point.x = Integer.parseInt(sc.nextLine());
 
             if(!(point.x < 10 && point.x >= 0))
                 throw new SaisieErroneeException("Saisie Erronée");
 
-            System.out.println("Choisissez les coordonnées y du "+nom);
+            System.out.println(joueur.getNom()+" choisissez les coordonnées y du "+nom);
             point.y = Integer.parseInt(sc.nextLine());
 
             if(!(point.y < 10 && point.y >= 0))
@@ -60,12 +60,12 @@ public class Menu {
         System.out.println();
     }
 
-    public int menuOrientationBateau(String nom) throws SaisieErroneeException {
+    public int menuOrientationBateau(String nom, Joueur joueur) throws SaisieErroneeException {
 
         Scanner sc = new Scanner(System.in);
         int ch;
 
-        System.out.println("Choisissez l'orientation du "+nom+"\n2 - sud       4 - ouest     6 - est    8 - Nord");
+        System.out.println(joueur.getNom()+" choisissez l'orientation du "+nom+"\n2 - sud       4 - ouest     6 - est    8 - Nord");
 
         try {
 
@@ -86,11 +86,11 @@ public class Menu {
 
     }
 
-    public int menuSelectionBateau(ArrayList<Bateau> listBateau) throws SaisieErroneeException{
+    public int menuSelectionBateau(ArrayList<Bateau> listBateau, Joueur joueur) throws SaisieErroneeException{
         int k=1, ch;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Selectionnez le bateau à déplacer");
+        System.out.println(joueur.getNom()+" selectionnez le bateau à déplacer");
 
         System.out.println("0 - Aucun bateau");
 
@@ -120,12 +120,12 @@ public class Menu {
 
     }
 
-    public int menuSelectionNbCasesDeplacement()throws SaisieErroneeException{
+    public int menuSelectionNbCasesDeplacement(Joueur joueur)throws SaisieErroneeException{
 
         Scanner sc = new Scanner(System.in);
         int ch;
 
-        System.out.println("Choisissez le nombre de cases de déplacement");
+        System.out.println(joueur.getNom()+" choisissez le nombre de cases de déplacement");
 
         try {
 
@@ -142,19 +142,19 @@ public class Menu {
         return ch;
     }
 
-    public Point menuSelectionTir() throws SaisieErroneeException {
+    public Point menuSelectionTir(Joueur joueur) throws SaisieErroneeException {
         Scanner sc = new Scanner(System.in);
         Point point = new Point();
 
         try {
 
-            System.out.println("Choisissez les coordonnées X du tir");
+            System.out.println(joueur.getNom()+" choisissez les coordonnées X du tir");
             point.x = Integer.parseInt(sc.nextLine());
 
             if(!(point.x < 10 && point.x >= 0))
                 throw new SaisieErroneeException("Saisie Erronée");
 
-            System.out.println("Choisissez les coordonnées Y du tir");
+            System.out.println(joueur.getNom()+" choisissez les coordonnées Y du tir");
             point.y = Integer.parseInt(sc.nextLine());
 
             if(!(point.y < 10 && point.y >= 0))

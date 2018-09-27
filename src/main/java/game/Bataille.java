@@ -16,18 +16,15 @@ public class Bataille {
     public Bataille(){
         boolean fin =false;;
 
-        joueur1 = new Joueur("Cesar");
+        joueur1 = new Joueur("Joueur 1");
         try {
             interfaceJeu1 = new InterfaceJeu(joueur1);
         } catch (SaisieErroneeException e) {
             e.printStackTrace();
         }
 
-        //joueur1.getListBateau().get(0).deplacement(6,2);
 
-        //interfaceJeu1.updateGrid(joueur1);
-
-        joueur2 = new Joueur("Brice");
+        joueur2 = new Joueur("Joueur 2");
         try {
             interfaceJeu2 = new InterfaceJeu(joueur2);
         } catch (SaisieErroneeException e) {

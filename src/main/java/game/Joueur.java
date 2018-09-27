@@ -49,14 +49,22 @@ public class Joueur {
     public boolean tir(Joueur adversaire){
         Point cible=null;
         boolean touche=false;
+        boolean saisiePositionTir;
 
         do{
-        try {
-            cible = menu.menuSelectionTir();
-            System.out.println("Tir sur "+cible);
-        } catch (SaisieErroneeException e) {
-            e.printStackTrace();
-        }
+            saisiePositionTir = false;
+            // Choisir le bateau à déplacer
+            while (!saisiePositionTir){
+                try {
+                    cible = menu.menuSelectionTir(this);
+                    System.out.println("Tir sur "+cible);
+                    saisiePositionTir = true;
+                } catch (SaisieErroneeException e) {
+                    saisiePositionTir = false;
+                    System.out.println("Erreur :  Renseignez Renseignez un chiffre entre 0 et 9");
+                }
+            }
+
         }while(!logic.isAPortee(this,cible));
 
         Bateau bateau  = logic.isTirATouche(cible,adversaire);
@@ -95,7 +103,7 @@ public class Joueur {
         // Choisir le bateau à déplacer
         while (!saisieChoixBateauCorrecte){
             try {
-                choixBateau = menu.menuSelectionBateau((ArrayList<Bateau>) listBateau);
+                choixBateau = menu.menuSelectionBateau((ArrayList<Bateau>) listBateau,this);
                 saisieChoixBateauCorrecte = true;
             } catch (SaisieErroneeException e) {
                 saisieChoixBateauCorrecte = false;
@@ -116,7 +124,7 @@ public class Joueur {
 
                 while (!saisieOrientationBateau){
                     try {
-                        orientationNavire = menu.menuOrientationBateau(listBateau.get(choixBateau).getNom());
+                        orientationNavire = menu.menuOrientationBateau(listBateau.get(choixBateau).getNom(),this);
                         saisieOrientationBateau = true;
                     } catch (SaisieErroneeException e) {
                         saisieOrientationBateau = false;
@@ -130,7 +138,7 @@ public class Joueur {
 
                 while (!saisieNbCasesCorrect){
                     try {
-                        nbCases = menu.menuSelectionNbCasesDeplacement();
+                        nbCases = menu.menuSelectionNbCasesDeplacement(this);
                         saisieNbCasesCorrect = true;
                     } catch (SaisieErroneeException e) {
                         saisieNbCasesCorrect = false;
@@ -144,14 +152,12 @@ public class Joueur {
                 Point positionPotentielle = bateau.deplacementPotentielle(orientationNavire,nbCases);
 
                 //verifier le bon placement du bateau
-
-                List<Point> invalidList = logic.getPositionnementBateau(positionPotentielle,orientationNavire,bateau.taille,this);
-
+                List<Point> invalidList = logic.isDeplacementPossible(this,orientationNavire,nbCases,bateau);
                 if(invalidList.size()==0){
                     valide=true;
                 }else{
                     valide=false;
-                    System.out.println("Le navire ne peut pas être placé ici, les cases suivantes sont occupé ou invalide:");
+                    System.out.println("Le navire ne peut pas être déplacé ici, les cases suivantes sont occupé ou invalide:");
                     for(int i = 0;i<invalidList.size();i++) {
                         System.out.println("X:"+(int) invalidList.get(i).getX()+"; Y:"+(int) invalidList.get(i).getY());
                     }
