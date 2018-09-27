@@ -211,7 +211,7 @@ public class GameLogic {
 		return false;
 	}
 
-	private List<Point> calculPortees(List<Point> pointsBateau, int champTirBateau) {
+	public List<Point> calculPortees(List<Point> pointsBateau, int champTirBateau) {
 		List<Point> porteesBateau = new ArrayList<Point>();
 
 		// On calcule la portée de chaque point individuellement
@@ -222,7 +222,7 @@ public class GameLogic {
 		return porteesBateau;
 	}
 
-	private List<Point> getPorteesPoint(Point point, int champTirBateau) {
+	public List<Point> getPorteesPoint(Point point, int champTirBateau) {
 		List<Point> pointPortees = new ArrayList<Point>();
 
 		// En fonction du champ de tir on va aller chercher "i" points
@@ -231,46 +231,38 @@ public class GameLogic {
 		int y = point.y;
 		int i = 1;
 
-		Point pointNORD = new Point();
-		Point pointEST = new Point();
-		Point pointSUD = new Point();
-		Point pointOUEST = new Point();
-
 		while (i <= champTirBateau) {
 			int xTheorique, yTheorique;
 
 			// NORD
 			xTheorique = x - i;
 			if (!isCoordHorsZone(xTheorique)) {
-				pointNORD.setLocation(xTheorique, y);
-				pointPortees.add(pointNORD);
+				pointPortees.add(new Point(xTheorique, y));
 			}
 
 			// SUD
 			xTheorique = x + i;
 			if (!isCoordHorsZone(xTheorique)) {
-				pointSUD.setLocation(xTheorique, y);
-				pointPortees.add(pointSUD);
+				pointPortees.add(new Point(xTheorique, y));
 			}
 
 			// EST
 			yTheorique = y + i;
 			if (!isCoordHorsZone(yTheorique)) {
-				pointEST.setLocation(x, yTheorique);
-				pointPortees.add(pointEST);
+				pointPortees.add(new Point(x, yTheorique));
 			}
 
 			// OUEST
 			yTheorique = y - i;
 			if (!isCoordHorsZone(yTheorique)) {
-				pointOUEST.setLocation(x, yTheorique);
-				pointPortees.add(pointOUEST);
+				pointPortees.add(new Point(x, yTheorique));
 			}
+			i++;
 		}
 
 		// Et on ajoute le point lui même
 		pointPortees.add(point);
-		
+
 		return pointPortees;
 	}
 
