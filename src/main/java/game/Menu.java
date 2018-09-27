@@ -97,7 +97,7 @@ public class Menu {
             if(!(point.x < 10 && point.x >= 0))
                 throw new SaisieErroneeException("Saisie Erronée");
 
-            System.out.println("Choisissez les coordonnées y du tir");
+            System.out.println("Choisissez les coordonnées Y du tir");
             point.y = Integer.parseInt(sc.nextLine());
 
             if(!(point.y < 10 && point.y >= 0))
@@ -107,7 +107,6 @@ public class Menu {
 
             throw  new SaisieErroneeException("Saisie Erronée");
         }
-
 
         return point;
     }
