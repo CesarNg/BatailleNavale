@@ -2,6 +2,7 @@ package logic;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import game.Bateau;
@@ -301,5 +302,76 @@ public class GameLogic {
 			return true;
 
 		return false;
+	}
+
+	public List<Point> isDeplacementPossible(Joueur joueur, int orientation, int nbCase, Bateau bateau) {
+		List<Point> pointsNonDisponibles = new ArrayList<Point>();
+		List<Point> pointsBateaux = bateau.getListPoint();
+		List<Point> pointsTheoriques = new ArrayList<Point>();
+		List<Bateau> bateauxSansActuelBateau = joueur.getListBateau();
+
+		// On va aller supprimer notre bateau de la liste
+		// pour ne pas entrer en conflit pour la recherche de points
+		Iterator<Bateau> it = bateauxSansActuelBateau.iterator();
+
+		while (it.hasNext()) {
+			Bateau bat = it.next();
+			if (bat.getNom().equals(bateau.getNom()))
+				it.remove();
+		}
+
+		// En fonction de l'orientation
+		// on déplace le bateau théoriquement
+
+		switch (orientation) {
+		case 8: // NORD
+			for (Point point : pointsBateaux) {
+				int xTheorique = point.x - 1;
+				if (!isCoordHorsZone(xTheorique))
+					pointsTheoriques.add(new Point(xTheorique, point.y));
+			}
+
+			break;
+		case 2: // SUD
+			for (Point point : pointsBateaux) {
+				int xTheorique = point.x + 1;
+				if (!isCoordHorsZone(xTheorique))
+					pointsTheoriques.add(new Point(xTheorique, point.y));
+			}
+			break;
+
+		case 6: // EST
+			for (Point point : pointsBateaux) {
+				int yTheorique = point.y + 1;
+				if (!isCoordHorsZone(yTheorique))
+					pointsTheoriques.add(new Point(point.x, yTheorique));
+			}
+			break;
+
+		case 4: // OUEST
+			for (Point point : pointsBateaux) {
+				int yTheorique = point.y - 1;
+				if (!isCoordHorsZone(yTheorique))
+					pointsTheoriques.add(new Point(point.x, yTheorique));
+			}
+			break;
+
+		default:
+			break;
+		}
+
+		// On vérifie que les points ne s'entrecroisent pas
+		// avec d'autres points (bateaux) du joueur
+		for (Bateau bat : bateauxSansActuelBateau) {
+			for (Point pointBateauxReel : bat.getListPoint()) {
+				for (Point pointTheorique : pointsTheoriques) {
+					if (arePointsEquals(pointBateauxReel, pointTheorique)) {
+						pointsNonDisponibles.add(new Point(pointTheorique.x, pointTheorique.y));
+					}
+				}
+			}
+		}
+
+		return pointsNonDisponibles;
 	}
 }
