@@ -15,16 +15,6 @@ public class InterfaceJeu {
     private SousMarin sousMarin;
     private Croiseur  croiseur;
     private String [][] champBataille;
-    private Point pointTorpilleur;
-    private int orientationTorpilleur;
-    private Point pointContreTorpilleur;
-    private int orientationContreTorpilleur;
-    private Point pointPorteAvion;
-    private int orientationPorteAvion;
-    private Point pointCroiseur;
-    private int orientationCroiseur;
-    private Point pointSousMarin;
-    private int orientationSousMarin;
     private Joueur joueur;
     private Menu menu;
     private Boolean saisiePositionCorrecte;
@@ -198,7 +188,10 @@ public class InterfaceJeu {
                 valide=true;
             }else{
                 valide=false;
-                System.out.println("Le navire ne peut pas être placé ici, les cases suivantes sont occupé ou invalide:"+invalidList);
+                System.out.println("Le navire ne peut pas être placé ici, les cases suivantes sont occupé ou invalide:");
+                for(int i = 0;i<invalidList.size();i++) {
+                    System.out.println("X:"+(int) invalidList.get(i).getX()+"; Y:"+(int) invalidList.get(i).getY());
+                }
             }
         }while(!valide);
 
