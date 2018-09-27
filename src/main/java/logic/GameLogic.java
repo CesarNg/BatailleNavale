@@ -326,7 +326,7 @@ public class GameLogic {
 		switch (orientation) {
 		case 8: // NORD
 			for (Point point : pointsBateaux) {
-				int xTheorique = point.x - 1;
+				int xTheorique = point.x - nbCase;
 				if (!isCoordHorsZone(xTheorique))
 					pointsTheoriques.add(new Point(xTheorique, point.y));
 			}
@@ -334,7 +334,7 @@ public class GameLogic {
 			break;
 		case 2: // SUD
 			for (Point point : pointsBateaux) {
-				int xTheorique = point.x + 1;
+				int xTheorique = point.x + nbCase;
 				if (!isCoordHorsZone(xTheorique))
 					pointsTheoriques.add(new Point(xTheorique, point.y));
 			}
@@ -342,7 +342,7 @@ public class GameLogic {
 
 		case 6: // EST
 			for (Point point : pointsBateaux) {
-				int yTheorique = point.y + 1;
+				int yTheorique = point.y + nbCase;
 				if (!isCoordHorsZone(yTheorique))
 					pointsTheoriques.add(new Point(point.x, yTheorique));
 			}
@@ -350,7 +350,7 @@ public class GameLogic {
 
 		case 4: // OUEST
 			for (Point point : pointsBateaux) {
-				int yTheorique = point.y - 1;
+				int yTheorique = point.y - nbCase;
 				if (!isCoordHorsZone(yTheorique))
 					pointsTheoriques.add(new Point(point.x, yTheorique));
 			}
