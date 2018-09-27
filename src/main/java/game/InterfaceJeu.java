@@ -50,16 +50,16 @@ public class InterfaceJeu {
         nouveauBateau(Torpilleur.class,torpilleur);
 
         // Choisir la position du sousMarin
-        nouveauBateau(SousMarin.class,sousMarin);
+       // nouveauBateau(SousMarin.class,sousMarin);
 
         // Choisir la position du contreTorpilleur
-        nouveauBateau(ContreTorpilleur.class,contreTorpilleur);
+        //nouveauBateau(ContreTorpilleur.class,contreTorpilleur);
 
         // Choisir la position du porteAvion
-        nouveauBateau(PorteAvion.class,porteAvion);
+        //nouveauBateau(PorteAvion.class,porteAvion);
 
         // Choisir la position du croiseur
-        nouveauBateau(Croiseur.class,croiseur);
+       // nouveauBateau(Croiseur.class,croiseur);
 
     }
 

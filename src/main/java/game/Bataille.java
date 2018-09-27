@@ -34,18 +34,30 @@ public class Bataille {
             e.printStackTrace();
         }
 
+        Boolean j1Touche=true,j2Touche=true;
         while(!fin){
-            Boolean j1Touche=false,j2Touche=false;
 
             if (!joueur1.Defaite()&&!joueur2.Defaite()) {
                 System.out.println("Tour du joueur 1");
                 interfaceJeu1.updateGrid(joueur1);
+
+                if (!j1Touche){
+                    joueur1.deplacerBateau();
+                    interfaceJeu1.updateGrid(joueur1);
+                }
+
                 j2Touche = joueur1.tir(joueur2);
             }else fin=true;
 
             if (!joueur1.Defaite()&&!joueur2.Defaite()) {
                 System.out.println("Tour du joueur 2");
                 interfaceJeu1.updateGrid(joueur2);
+
+                if (!j2Touche){
+                    joueur2.deplacerBateau();
+                    interfaceJeu2.updateGrid(joueur2);
+                }
+
                 j1Touche = joueur2.tir(joueur1);
             }else fin=true;
 

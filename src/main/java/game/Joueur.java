@@ -107,7 +107,7 @@ public class Joueur {
 
         }
         else{
-
+            choixBateau=choixBateau-1;
             do {
 
                 //Choisir l'orientation du Bateau
