@@ -148,7 +148,7 @@ public class GameLogic {
 				end = derniereValeur - point.y;
 				end = end * (-1); // valeur absolue
 				i = 0;
-				
+
 				// Ajout des points valides (OUEST)
 				while (i < end) {
 					pointsValides.add(new Point(point.x, point.y + i));
@@ -199,7 +199,7 @@ public class GameLogic {
 
 		for (Bateau bateau : joueur.getListBateau()) {
 			// Calcul des portées et retour des valeurs dans un tableau
-			porteesBateaux.addAll(calculPortees(bateau.getListPoint()));
+			porteesBateaux.addAll(calculPortees(bateau.getListPoint(), bateau.getChampTire()));
 		}
 
 		// On compare notre point avec le tableau de valeurs (points)
@@ -211,15 +211,46 @@ public class GameLogic {
 		return false;
 	}
 
-	private List<Point> calculPortees(List<Point> listPoint) {
-		return listPoint;
-		// TODO Auto-generated method stub
+	private List<Point> calculPortees(List<Point> pointsBateau, int champTirBateau) {
+		List<Point> porteesBateau = new ArrayList<Point>();
 
+		// On va pour chaque point
+		// calculer sa portée
+		for (Point point : pointsBateau) {
+			porteesBateau.addAll(getPorteesPoint(point, champTirBateau));
+		}
+
+		return porteesBateau;
 	}
 
-	public boolean isTirATouche(Point point, Joueur joueurAdverse) {
+	private List<Point> getPorteesPoint(Point point, int champTirBateau) {
+		List<Point> pointPortees = new ArrayList<Point>();
+		
+		// En fonction du champ de tir on va aller chercher "i" points
+		// vers le NORD & EST & SUD & OUEST
+		int x = point.x;
+		int y = point.y;
+		int i = 1;
+		
+		Point pointNORD = new Point();
+		Point pointEST = new Point();
+		Point pointSUD = new Point();
+		Point pointOUEST = new Point();
+		
+		while(i <= champTirBateau) {
+			
+		}
+		
+		// Et on ajoute le point lui même
+		pointPortees.add(point);
+		
+
+		return pointPortees;
+	}
+
+	public Bateau isTirATouche(Point point, Joueur joueurAdverse) {
 		if (point == null || joueurAdverse == null)
-			return false;
+			return null;
 
 		// Récupération des bateaux du joueur adverse
 		List<Bateau> bateaux = joueurAdverse.getListBateau();
@@ -227,15 +258,13 @@ public class GameLogic {
 		// Pour chaque bateau => récupèration de ses points
 		// et comparaison avec notre point
 		for (Bateau bateau : bateaux) {
-			List<Point> pointsBateaux = bateau.getListPoint();
-
-			for (Point pointComparaison : pointsBateaux) {
+			for (Point pointComparaison : bateau.getListPoint()) {
 				if (arePointsEquals(point, pointComparaison))
-					return true; // Bateau est sur la case => touché
+					return bateau; // Bateau est sur la case => touché
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	private boolean arePointsEquals(Point point, Point pointComparaison) {
