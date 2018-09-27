@@ -32,7 +32,7 @@ public class Joueur {
         listBateau.add(bateau);
     }
 
-    public void supprBateau(Bateau bateau){
+    public void supprimerBateau(Bateau bateau){
         if (listBateau.contains(bateau)) {
             listBateau.remove(bateau);
         }
@@ -46,28 +46,35 @@ public class Joueur {
         return nom;
     }
 
-    public boolean tir(Joueur adversaire) throws SaisieErroneeException {
-        Point cible;
+    public boolean tir(Joueur adversaire){
+        Point cible=null;
         boolean touche=false;
 
-        cible = menu.menuSelectionTir();
-
-        while(!logic.isAPortee(this,cible)){
-            Bateau bateau  = logic.isTirATouche(cible,adversaire);
-
-            if (bateau!=null){
-                touche = true;
-                boolean coule = bateau.impact();
-                if(coule) {
-                    System.out.println("Le " + bateau.nom + "adverse à été coulé");
-                }else{
-                    System.out.println("Le " + bateau.nom + "adverse à été touché");
-                }
-            }else{
-                System.out.print("Tir dans l'eau");
-                touche = false;
-            }
+        do{
+        try {
+            cible = menu.menuSelectionTir();
+            System.out.println("Tir sur "+cible);
+        } catch (SaisieErroneeException e) {
+            e.printStackTrace();
         }
+        }while(!logic.isAPortee(this,cible));
+
+        Bateau bateau  = logic.isTirATouche(cible,adversaire);
+
+        if (bateau!=null){
+            touche = true;
+            boolean coule = bateau.impact();
+            if(coule) {
+                System.out.println("Le " + bateau.nom + " adverse à été coulé");
+                adversaire.supprimerBateau(bateau);
+            }else{
+                System.out.println("Le " + bateau.nom + " adverse à été touché");
+            }
+        }else{
+            System.out.println("Tir dans l'eau");
+            touche = false;
+        }
+
 
         return touche;
     }
