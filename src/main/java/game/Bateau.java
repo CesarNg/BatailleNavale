@@ -23,6 +23,13 @@ public abstract class Bateau {
 
     }
 
+    public Bateau(int taille, int champTire){
+        this.nom = "default";
+        this.champTire = champTire;
+        this.taille = taille;
+        pointsVie = 2;
+        position = new Point();
+    }
     public Boolean impact(){
 
         pointsVie -- ;
@@ -30,10 +37,7 @@ public abstract class Bateau {
            Retourne true si les points de vie sont à zero et false dans le cas contraire
          */
 
-        if(pointsVie == 0)
-            return true;
-        else
-            return false;
+        return pointsVie == 0;
     }
 
     public String getNom() {

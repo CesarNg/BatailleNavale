@@ -1,5 +1,7 @@
 package game;
 
+import exception.SaisieErroneeException;
+
 public class Bataille {
 
     private Torpilleur torpilleur;
@@ -19,9 +21,13 @@ public class Bataille {
     public Bataille(){
 
          joueur1 = new Joueur("Cesar");
-         interfaceJeu1 = new InterfaceJeu(joueur1);
+        try {
+            interfaceJeu1 = new InterfaceJeu(joueur1);
+        } catch (SaisieErroneeException e) {
+            e.printStackTrace();
+        }
 
-         joueur1.getListBateau().get(0).deplacement(6,2);
+        joueur1.getListBateau().get(0).deplacement(6,2);
 
          interfaceJeu1.updateGrid(joueur1);
 
