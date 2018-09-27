@@ -172,14 +172,39 @@ public class InterfaceJeu {
 
         boolean valide;
         Point pointNavire;
-        int orientationNavire;
+        int orientationNavire = -1;
+
+
+        pointNavire = new Point();
 
         do {
             // Choisir la position du Bateau
-            pointNavire = menu.menuPositionBateau(classDeNavire.getSimpleName());
+            saisiePositionCorrecte = false;
+            while (!saisiePositionCorrecte){
+                try {
+                    // Choisir la position du Bateau
+                    pointNavire = menu.menuPositionBateau(classDeNavire.getSimpleName());
+                    saisiePositionCorrecte = true;
+                } catch (SaisieErroneeException e) {
+                    saisiePositionCorrecte = false;
+                    System.out.println("Erreur :  Entrez un chiffre entre 0 et 9");
+                }
+            }
 
             //Choisir l'orientation du Bateau
-            orientationNavire = menu.menuOrientationBateau(classDeNavire.getName());
+
+            saisieOrientationCorrecte = false;
+
+            while (!saisieOrientationCorrecte){
+                try {
+                    orientationNavire = menu.menuOrientationBateau(classDeNavire.getName());
+                    saisieOrientationCorrecte = true;
+                } catch (SaisieErroneeException e) {
+                    saisieOrientationCorrecte = false;
+                    System.out.println("Erreur :  Renseignez le bon chiffre qui correspond à l'orientation");
+                }
+            }
+
 
             //Verifier la possibilité
             List<Point> invalidList = verifications.getPositionnementBateau(pointNavire,orientationNavire,navire.taille,joueur);
