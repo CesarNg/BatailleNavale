@@ -188,7 +188,7 @@ public class GameLogic {
 		return pointsInvalides;
 	}
 
-	public boolean isAPortee(Joueur joueur, String[][] champBataille, Point point) {
+	public boolean isAPortee(Joueur joueur, Point point) {
 		// On récupère les portées possibles de chaque bateau => donc une liste
 		// de points (x,y)
 		// On parcourt la liste de ces portées (x,y) et si le Point (x,y) passé
