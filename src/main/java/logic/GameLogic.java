@@ -308,7 +308,10 @@ public class GameLogic {
 		List<Point> pointsNonDisponibles = new ArrayList<Point>();
 		List<Point> pointsBateaux = bateau.getListPoint();
 		List<Point> pointsTheoriques = new ArrayList<Point>();
-		List<Bateau> bateauxSansActuelBateau = joueur.getListBateau();
+
+		List<Bateau> bateauxSansActuelBateau = new ArrayList<Bateau>();
+		// Pour éviter de supprimer la référence du bateau
+		bateauxSansActuelBateau.addAll(joueur.getListBateau());
 
 		// On va aller supprimer notre bateau de la liste
 		// pour ne pas entrer en conflit pour la recherche de points
