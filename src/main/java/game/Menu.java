@@ -85,6 +85,32 @@ public class Menu {
 
     }
 
+    public Point menuSelectionTir() throws SaisieErroneeException {
+        Scanner sc = new Scanner(System.in);
+        Point point = new Point();
+
+        try {
+
+            System.out.println("Choisissez les coordonnées X du tir");
+            point.x = Integer.parseInt(sc.nextLine());
+
+            if(!(point.x < 10 && point.x >= 0))
+                throw new SaisieErroneeException("Saisie Erronée");
+
+            System.out.println("Choisissez les coordonnées y du tir");
+            point.y = Integer.parseInt(sc.nextLine());
+
+            if(!(point.y < 10 && point.y >= 0))
+                throw new SaisieErroneeException("Saisie Erronée");
+
+        } catch(NumberFormatException e) {
+
+            throw  new SaisieErroneeException("Saisie Erronée");
+        }
+
+
+        return point;
+    }
 
     public void afficherChampBataille(String [][] champBataille){
 
