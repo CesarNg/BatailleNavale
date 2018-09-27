@@ -188,7 +188,7 @@ public class GameLogic {
 		return pointsInvalides;
 	}
 
-	public boolean isAPortee(Joueur joueur, String[][] champBataille, Point point) {
+	public boolean isAPortee(Joueur joueur, Point point) {
 		// On récupère les portées possibles de chaque bateau => donc une liste
 		// de points (x,y)
 		// On parcourt la liste de ces portées (x,y) et si le Point (x,y) passé
@@ -214,8 +214,7 @@ public class GameLogic {
 	private List<Point> calculPortees(List<Point> pointsBateau, int champTirBateau) {
 		List<Point> porteesBateau = new ArrayList<Point>();
 
-		// On va pour chaque point
-		// calculer sa portée
+		// On calcule la portée de chaque point individuellement
 		for (Point point : pointsBateau) {
 			porteesBateau.addAll(getPorteesPoint(point, champTirBateau));
 		}
@@ -225,27 +224,61 @@ public class GameLogic {
 
 	private List<Point> getPorteesPoint(Point point, int champTirBateau) {
 		List<Point> pointPortees = new ArrayList<Point>();
-		
+
 		// En fonction du champ de tir on va aller chercher "i" points
 		// vers le NORD & EST & SUD & OUEST
 		int x = point.x;
 		int y = point.y;
 		int i = 1;
-		
+
 		Point pointNORD = new Point();
 		Point pointEST = new Point();
 		Point pointSUD = new Point();
 		Point pointOUEST = new Point();
-		
-		while(i <= champTirBateau) {
-			
+
+		while (i <= champTirBateau) {
+			int xTheorique, yTheorique;
+
+			// NORD
+			xTheorique = x - i;
+			if (!isCoordHorsZone(xTheorique)) {
+				pointNORD.setLocation(xTheorique, y);
+				pointPortees.add(pointNORD);
+			}
+
+			// SUD
+			xTheorique = x + i;
+			if (!isCoordHorsZone(xTheorique)) {
+				pointSUD.setLocation(xTheorique, y);
+				pointPortees.add(pointSUD);
+			}
+
+			// EST
+			yTheorique = y + i;
+			if (!isCoordHorsZone(yTheorique)) {
+				pointEST.setLocation(x, yTheorique);
+				pointPortees.add(pointEST);
+			}
+
+			// OUEST
+			yTheorique = y - i;
+			if (!isCoordHorsZone(yTheorique)) {
+				pointOUEST.setLocation(x, yTheorique);
+				pointPortees.add(pointOUEST);
+			}
 		}
-		
+
 		// Et on ajoute le point lui même
 		pointPortees.add(point);
 		
-
 		return pointPortees;
+	}
+
+	private boolean isCoordHorsZone(int coord) {
+		if (coord < 0 || coord > 9)
+			return true;
+
+		return false;
 	}
 
 	public Bateau isTirATouche(Point point, Joueur joueurAdverse) {
@@ -257,6 +290,7 @@ public class GameLogic {
 
 		// Pour chaque bateau => récupèration de ses points
 		// et comparaison avec notre point
+		// on retourne la bateau qui a été touché
 		for (Bateau bateau : bateaux) {
 			for (Point pointComparaison : bateau.getListPoint()) {
 				if (arePointsEquals(point, pointComparaison))
@@ -275,6 +309,5 @@ public class GameLogic {
 			return true;
 
 		return false;
-
 	}
 }
