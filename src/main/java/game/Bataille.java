@@ -2,6 +2,8 @@ package game;
 
 import exception.SaisieErroneeException;
 
+import java.util.Scanner;
+
 public class Bataille {
 
     private String [][] champBataille;
@@ -9,6 +11,7 @@ public class Bataille {
     private Joueur joueur2;
     private InterfaceJeu interfaceJeu1;
     private InterfaceJeu interfaceJeu2;
+    private Scanner sc = new Scanner(System.in);
 
 
 
@@ -19,6 +22,8 @@ public class Bataille {
         joueur1 = new Joueur("Joueur 1");
         try {
             interfaceJeu1 = new InterfaceJeu(joueur1);
+            System.out.print("Tapez une touche pour continuer\n");
+            sc.nextLine();
         } catch (SaisieErroneeException e) {
             e.printStackTrace();
         }
@@ -27,6 +32,8 @@ public class Bataille {
         joueur2 = new Joueur("Joueur 2");
         try {
             interfaceJeu2 = new InterfaceJeu(joueur2);
+            System.out.print("Tapez une touche pour continuer\n");
+            sc.nextLine();
         } catch (SaisieErroneeException e) {
             e.printStackTrace();
         }
@@ -41,6 +48,8 @@ public class Bataille {
                 if (!j1Touche){
                     joueur1.deplacerBateau();
                     interfaceJeu1.updateGrid(joueur1);
+                    System.out.print("Tapez une touche pour continuer\n");
+                    sc.nextLine();
                 }
 
                 j2Touche = joueur1.tir(joueur2);
@@ -53,6 +62,8 @@ public class Bataille {
                 if (!j2Touche){
                     joueur2.deplacerBateau();
                     interfaceJeu2.updateGrid(joueur2);
+                    System.out.print("Tapez une touche pour continuer\n");
+                    sc.nextLine();
                 }
 
                 j1Touche = joueur2.tir(joueur1);
