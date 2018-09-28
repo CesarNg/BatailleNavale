@@ -57,7 +57,7 @@ public class Joueur {
             while (!saisiePositionTir){
                 try {
                     cible = menu.menuSelectionTir(this);
-                    System.out.println("Tir sur "+cible);
+                    System.out.println("Tir sur ("+cible.x +", "+ cible.y + ")");
                     saisiePositionTir = true;
                 } catch (SaisieErroneeException e) {
                     saisiePositionTir = false;
